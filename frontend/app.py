@@ -1,21 +1,84 @@
 import streamlit as st
 import requests
+import pandas as pd
+import plotly.express as px
 
-st.title("Basic Income Simulator")
+st.set_page_config(layout="wide")
+st.title("📊 Simulateur de Revenu de Base")
 
-current_income = st.number_input(
-    "Current monthly income (€)", min_value=0.0, value=1500.0
-)
-household_size = st.number_input("Household size", min_value=1, value=1)
+# Barre latérale pour les paramètres
+with st.sidebar:
+    st.header("Paramètres")
+    revenu_mensuel = st.number_input(
+        "Revenu mensuel actuel (€)", min_value=0.0, value=2000.0
+    )
+    statut = st.selectbox("Statut", ["célibataire", "en couple"])
+    nombre_enfants = st.number_input("Nombre d'enfants", min_value=0, value=0)
 
-if st.button("Calculate"):
-    payload = {"current_income": current_income, "household_size": household_size}
-    try:
-        response = requests.post(
-            "http://backend:8000/api/calculate_basic_income", json=payload
+# Bouton de simulation
+if st.button("Lancer la simulation", type="primary"):
+    response = requests.post(
+        "http://backend:8000/simulations/",
+        json={
+            "revenu_mensuel": revenu_mensuel,
+            "statut": statut,
+            "nombre_enfants": nombre_enfants,
+        },
+    )
+    if response.status_code == 200:
+        result = response.json()
+        revenu_de_base = result["revenu_de_base"]
+        revenu_total = result["revenu_total"]
+
+        # Affichage des résultats
+        st.success(f"Revenu de base : **{revenu_de_base} €**")
+        st.success(f"Revenu total après application : **{revenu_total} €**")
+
+        # Création d'un DataFrame pour les graphiques
+        data = {
+            "Catégorie": ["Revenu actuel", "Revenu de base", "Revenu total"],
+            "Montant (€)": [revenu_mensuel, revenu_de_base, revenu_total],
+        }
+        df = pd.DataFrame(data)
+
+        # Graphique comparatif
+        fig = px.bar(
+            df,
+            x="Catégorie",
+            y="Montant (€)",
+            title="Comparaison des revenus",
+            color="Catégorie",
         )
-        response.raise_for_status()
-        data = response.json()
-        st.success(f"Basic income calculated: {data['basic_income']:.2f} €")
-    except requests.RequestException as e:
-        st.error(f"Calculation failed: {e}")
+        st.plotly_chart(fig, use_container_width=True)
+
+        # Graphique camembert
+        fig_pie = px.pie(
+            df, values="Montant (€)", names="Catégorie", title="Répartition des revenus"
+        )
+        st.plotly_chart(fig_pie, use_container_width=True)
+    else:
+        st.error("Erreur lors de la simulation. Veuillez réessayer.")
+
+# Exemple de simulation automatique pour illustration
+if st.checkbox("Voir un exemple de simulation"):
+    exemple = {"revenu_mensuel": 2500, "statut": "en couple", "nombre_enfants": 2}
+    response = requests.post("http://backend:8000/simulations/", json=exemple)
+    if response.status_code == 200:
+        result = response.json()
+        df_exemple = pd.DataFrame(
+            {
+                "Catégorie": ["Revenu actuel", "Revenu de base", "Revenu total"],
+                "Montant (€)": [
+                    exemple["revenu_mensuel"],
+                    result["revenu_de_base"],
+                    result["revenu_total"],
+                ],
+            }
+        )
+        fig_exemple = px.bar(
+            df_exemple,
+            x="Catégorie",
+            y="Montant (€)",
+            title="Exemple : Couple avec 2 enfants",
+        )
+        st.plotly_chart(fig_exemple, use_container_width=True)

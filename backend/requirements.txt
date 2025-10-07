@@ -1,3 +1,6 @@
 fastapi
 uvicorn
+sqlalchemy
+pytest
+pytest-bdd
 pydantic
