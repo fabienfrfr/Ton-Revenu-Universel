@@ -32,5 +32,19 @@ services:
       timeout: 5s
       retries: 5
 
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.tests
+    depends_on:
+      - backend
+      - frontend
+    environment:
+      - FRONTEND_URL=http://frontend:8501
+      - BACKEND_URL=http://backend:8000
+    volumes:
+      - ./tests:/app/tests # Monte le dossier tests pour le développement
+    command: pytest tests/unit tests/e2e -v
+
 volumes:
   postgres_data:

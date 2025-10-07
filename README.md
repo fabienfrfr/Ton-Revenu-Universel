@@ -135,7 +135,16 @@ simulateur_revenu_de_base/
 ├── frontend/
 │   ├── app.py               # Streamlit app
 │   └── Dockerfile
-│
+|
+├── tests/
+│   ├── unit/                # Tests unitaires/BDD pour le backend
+│   │   ├── features/
+│   │   └── steps/
+│   ├── e2e/                 # Tests end-to-end (frontend + backend)
+│   │   ├── test_simulation.py
+│   │   └── conftest.py
+│   └── requirements.txt     # Dépendances spécifiques aux tests
+|
 ├── .github/
 │   └── workflows/
 │       └── ci-cd.yml        # GitHub Actions pour CI/CD
