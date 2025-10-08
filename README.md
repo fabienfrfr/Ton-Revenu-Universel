@@ -3,7 +3,7 @@
 
 Un simulateur web moderne pour calculer l'impact d'un revenu de base sur les revenus des ménages, inspiré par les propositions politiques actuelles. Le projet utilise **FastAPI** pour le backend, **Streamlit** pour le frontend, et **pytest-bdd** pour les tests.
 
-![Streamlit Demo](https://via.placeholder.com/800x400?text=Demo+Streamlit+Simulateur) *(À remplacer par une capture d'écran réelle)*
+![Streamlit Demo](./docs/demo.png)
 
 ---
 
@@ -169,10 +169,10 @@ simulateur_revenu_de_base/
 ## 📊 Exemples de Visualisations
 
 ### 1. Comparaison des revenus (graphique en barres)
-![Bar Chart](https://via.placeholder.com/400x200?text=Bar+Chart) *(À remplacer par une capture réelle)*
+![Bar Chart](https://via.placeholder.com/400x200?text=Bar+Chart) *(TODO)*
 
 ### 2. Répartition des revenus (graphique camembert)
-![Pie Chart](https://via.placeholder.com/400x200?text=Pie+Chart) *(À remplacer par une capture réelle)*
+![Pie Chart](https://via.placeholder.com/400x200?text=Pie+Chart) *(TODO)*
 
 ---
 

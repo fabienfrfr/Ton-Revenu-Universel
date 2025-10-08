@@ -1,4 +1,4 @@
-.PHONY: install lint coverage merge-dev
+.PHONY: install lint coverage merge-dev delete-ci-runs
 
 lint:
 	isort src/ tests/
@@ -17,3 +17,7 @@ merge-dev:
 	git branch -D dev
 	git checkout -b dev main
 	git push origin dev --force
+
+delete-ci-runs:
+	@echo "Deleting all GitHub Actions runs from GitHub CLI..."
+	gh run list --limit 1000 --json databaseId -q '.[].databaseId' | xargs -n 1 gh run delete
