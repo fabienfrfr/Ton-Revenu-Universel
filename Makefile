@@ -8,6 +8,8 @@ SHELL             := /bin/sh
 LICENCES_CHECKER  := reuse lint
 PYTHON            := python
 PYTEST            := pytest
+YAMLLINT          := yamllint
+DOCKER_COMPOSE    := docker-compose
 
 .POSIX:
 .SUFFIXES:
@@ -15,9 +17,24 @@ PYTEST            := pytest
 
 all: check
 
+start: .env
+	$(DOCKER_COMPOSE) up -d --wait --wait-timeout 120
+	$(DOCKER_COMPOSE) ps
+
+stop:
+	$(DOCKER_COMPOSE) down
+
+restart:
+	$(MAKE) stop
+	$(MAKE) start
+
+logs:
+	$(DOCKER_COMPOSE) logs -f
+
 check: lint check_licenses
 
 lint:
+	$(YAMLLINT) .
 	isort src/ tests/
 	$(PYTHON) -m pylint src/ tests/
 
@@ -42,7 +59,13 @@ delete-ci-runs:
 	@echo "Deleting all GitHub Actions runs from GitHub CLI..."
 	gh run list --limit 1000 --json databaseId -q '.[].databaseId' | xargs -n 1 gh run delete
 
-.PHONY: install lint coverage merge-dev delete-ci-runs
+.PHONY: lint check check_licenses build start stop restart logs coverage merge-dev delete-ci-runs
+
+.env:
+	echo "DB_NAME     = simulator"                   >  $@
+	echo "DB_USER     = simulator_user"              >> $@
+	echo "DB_PASSWORD = $$(openssl rand -base64 32)" >> $@
+
 
 extract/projet_complet.md: extract/project_extrator.py
 	$(PYTHON) $<

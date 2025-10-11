@@ -1,0 +1,24 @@
+# © 2025 Mouvement Français pour un Revenu de Base http://www.revenudebase.info
+#
+# SPDX-License-Identifier: Unlicense+
+# SPDX-FileContributor:    Henri  GEIST
+
+[*]
+indent_style             = space
+indent_size              = 4
+tab_width                = 4
+end_of_line              = lf
+charset                  = utf-8
+trim_trailing_whitespace = true
+insert_final_newline     = true
+
+[{Makefile,**/Makefile}]
+indent_style             = tab
+
+[*.y{a,}ml,.yamllint]
+indent_size              = 2
+tab_width                = 2
+
+[*.feature]
+indent_size              = 2
+tab_width                = 2
