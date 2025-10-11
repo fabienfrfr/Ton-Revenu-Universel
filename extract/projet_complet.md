@@ -41,6 +41,7 @@
   - requirements.txt
 - docs/
   - Fiche_projet_SIMUL.pdf
+  - archi.md
   - demo.png
 
 ---
@@ -112,6 +113,14 @@ Un simulateur web moderne pour calculer l'impact d'un revenu de base sur les rev
 
 ![Streamlit Demo](./docs/demo.png)
 
+
+TODO : 
+
+(à mettre dans la partie doc ? voir les bonnes pratiques de dev)
+
+- vault
+- gestion ssh, en cas de serveur
+
 ---
 
 ## 📌 Fonctionnalités
@@ -119,7 +128,7 @@ Un simulateur web moderne pour calculer l'impact d'un revenu de base sur les rev
 - **Calcul du revenu de base** selon le statut (célibataire, en couple) et le nombre d'enfants.
 - **Visualisation interactive** des résultats avec des graphiques comparatifs (barres, camembert).
 - **Base de données SQL** pour stocker les simulations.
-- **Tests BDD** avec `pytest-bdd` pour une validation robuste.
+- **Tests BDD** avec `pytest-bdd` pour la validation des scénarios.
 - **Déploiement automatisé** via GitHub Actions et Docker.
 
 ---
@@ -215,8 +224,8 @@ docker-compose up --build
   - Lancer les tests à chaque push/PR.
   - Construire et pousser les images Docker sur Docker Hub.
 - **Variables secrètes** :
-  - `DOCKER_USERNAME` : Ton identifiant Docker Hub.
-  - `DOCKER_PASSWORD` : Ton mot de passe ou token Docker Hub.
+  - `DOCKER_USERNAME` : Identifiant Docker Hub.
+  - `DOCKER_PASSWORD` : Mot de passe ou token Docker Hub.
 
 ---
 
@@ -303,7 +312,7 @@ Ce projet est sous licence **MIT**. Voir le fichier [LICENSE](LICENSE) pour plus
 
 ## 📬 Contact
 
-Pour toute question ou suggestion, contacte-moi à [fabien.furfaro@example.com](mailto:fabien.furfaro@example.com).
+Pour toute question ou suggestion, contacte-moi à [fabien.furfaro@gail.com](mailto:fabien.furfaro@example.com).
 ```
 
 
@@ -866,4 +875,47 @@ plotly
 pandas
 requests
 
+```
+
+
+# File: ./docs/archi.md
+```markdown
+## Architecture fonctionnelle
+
+Inclu les éléments techniques
+
+```mermaid
+
+graph LR
+
+  User[Utilisateur] --> FE[Streamlit - Interface utilisateur]
+  subgraph Frontend
+    FE
+  end
+  subgraph Backend
+    BE[FastAPI - API métier]
+    subgraph ERD
+      DB[(PostgreSQL - Base de données)]
+    end
+  end
+  FE -- Envoi des données de simulation (POST /simulations/) --> BE
+  BE -- Lecture / écriture des données de simulation --> DB
+  BE -- Renvoi des résultats au frontend --> FE
+
+ 
+
+  style User fill:#f9f,stroke:#333,stroke-width:2px,color:#000
+  style FE fill:#bbf,stroke:#333,stroke-width:2px,color:#000
+  style BE fill:#bfb,stroke:#333,stroke-width:2px,color:#000
+  style DB fill:#fbf,stroke:#333,stroke-width:2px,color:#000
+
+  linkStyle 0 stroke:#f66,stroke-width:2px
+  linkStyle 1 stroke:#6f6,stroke-width:2px
+  linkStyle 2 stroke:#66f,stroke-width:2px
+
+ 
+
+```
+
+ 
 ```

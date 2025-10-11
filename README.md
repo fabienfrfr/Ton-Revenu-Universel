@@ -5,6 +5,14 @@ Un simulateur web moderne pour calculer l'impact d'un revenu de base sur les rev
 
 ![Streamlit Demo](./docs/demo.png)
 
+
+TODO : 
+
+(à mettre dans la partie doc ? voir les bonnes pratiques de dev)
+
+- vault
+- gestion ssh, en cas de serveur
+
 ---
 
 ## 📌 Fonctionnalités
@@ -12,7 +20,7 @@ Un simulateur web moderne pour calculer l'impact d'un revenu de base sur les rev
 - **Calcul du revenu de base** selon le statut (célibataire, en couple) et le nombre d'enfants.
 - **Visualisation interactive** des résultats avec des graphiques comparatifs (barres, camembert).
 - **Base de données SQL** pour stocker les simulations.
-- **Tests BDD** avec `pytest-bdd` pour une validation robuste.
+- **Tests BDD** avec `pytest-bdd` pour la validation des scénarios.
 - **Déploiement automatisé** via GitHub Actions et Docker.
 
 ---
@@ -108,8 +116,8 @@ docker-compose up --build
   - Lancer les tests à chaque push/PR.
   - Construire et pousser les images Docker sur Docker Hub.
 - **Variables secrètes** :
-  - `DOCKER_USERNAME` : Ton identifiant Docker Hub.
-  - `DOCKER_PASSWORD` : Ton mot de passe ou token Docker Hub.
+  - `DOCKER_USERNAME` : Identifiant Docker Hub.
+  - `DOCKER_PASSWORD` : Mot de passe ou token Docker Hub.
 
 ---
 
@@ -196,4 +204,4 @@ Ce projet est sous licence **MIT**. Voir le fichier [LICENSE](LICENSE) pour plus
 
 ## 📬 Contact
 
-Pour toute question ou suggestion, contacte-moi à [fabien.furfaro@example.com](mailto:fabien.furfaro@example.com).
+Pour toute question ou suggestion, contacte-moi à [fabien.furfaro@gail.com](mailto:fabien.furfaro@example.com).

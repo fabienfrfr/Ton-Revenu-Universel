@@ -1,5 +1,7 @@
 ## Architecture fonctionnelle
 
+Inclu les éléments techniques
+
 ```mermaid
 
 graph LR
