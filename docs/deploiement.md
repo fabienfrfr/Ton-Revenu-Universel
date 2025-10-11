@@ -108,6 +108,11 @@ openssl rand -base64 32
 *(Copie-colle le résultat dans `.env` pour `DB_PASSWORD`.)*
 
 ---
+### **(Alternative). Utilisation de Docker Swarm**
+
+TODO
+
+---
 ## **🚀 Déploiement avec Docker**
 ### **1. Cloner le Dépôt**
 ```bash

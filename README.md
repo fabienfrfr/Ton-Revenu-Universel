@@ -5,14 +5,6 @@ Un simulateur web moderne pour calculer l'impact d'un revenu de base sur les rev
 
 ![Streamlit Demo](./docs/demo.png)
 
-
-TODO : 
-
-(à mettre dans la partie doc ? voir les bonnes pratiques de dev)
-
-- vault
-- gestion ssh, en cas de serveur
-
 ---
 
 ## 📌 Fonctionnalités
