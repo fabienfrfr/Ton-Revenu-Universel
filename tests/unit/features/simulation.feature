@@ -1,3 +1,8 @@
+# © 2025 Mouvement Français pour un Revenu de Base http://www.revenudebase.info
+#
+# SPDX-License-Identifier: Apache-2.0+
+# SPDX-FileContributor:    Fabien FURFARO
+
 Feature: Simulation de revenu de base
   Scenario: Calculer le revenu de base pour un célibataire sans enfant
     Given un revenu mensuel de 2000 euros
