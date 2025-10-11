@@ -3,7 +3,7 @@
 
 Un simulateur web moderne pour calculer l'impact d'un revenu de base sur les revenus des ménages, inspiré par les propositions politiques actuelles. Le projet utilise **FastAPI** pour le backend, **Streamlit** pour le frontend, et **pytest-bdd** pour les tests.
 
-![Streamlit Demo](./docs/demo.png)
+![Streamlit Demo](./docs/demo_simul.png)
 
 ---
 
