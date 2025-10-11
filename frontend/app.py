@@ -3,8 +3,27 @@ import requests
 import pandas as pd
 import plotly.express as px
 
-st.set_page_config(layout="wide")
-st.title("📊 Simulateur de Revenu de Base")
+
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+
+st.set_page_config(
+    page_title="Simulateur Revenu Universel",
+    page_icon="💰",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items={
+        "Get Help": "https://www.revenudebase.info/help",
+        "Report a bug": "mailto:fabien.furfaro@gmail.com",
+        "About": "# Simulateur Revenu de Base\nVersion 1.0",
+    },
+)
+
+local_css("style.css")
+
+st.title("📊 Simulateur de Revenu Universel")
 
 # Barre latérale pour les paramètres
 with st.sidebar:

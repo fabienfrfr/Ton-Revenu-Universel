@@ -1,0 +1,9 @@
+[theme]
+primaryColor = "#2980B9"                # Couleur principale (boutons, surlignages)
+backgroundColor = "#F7F9FC"             # Couleur de fond du contenu
+secondaryBackgroundColor = "#FFFFFF"    # Fond secondaire (sidebar, encarts)
+textColor = "#2C3E50"                   # Couleur du texte principal
+font = "sans serif"                     # Police utilisée ("serif", "sans serif", "monospace")
+
+[client]
+toolbarMode = "auto"

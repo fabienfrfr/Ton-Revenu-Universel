@@ -1,0 +1,64 @@
+/* Titre principal */
+h1,
+.stTitle {
+    font-size: 34px !important;
+    color: #2C3E50;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 700;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Sidebar : largeur et fond */
+[data-testid="stSidebar"] {
+    width: 300px !important;
+    background-color: #F7F9FC;
+    padding: 20px 15px 30px 15px;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Style des boutons */
+.stButton>button {
+    background-color: #4B8BBE;
+    color: white;
+    border-radius: 12px;
+    padding: 12px 30px;
+    font-weight: 700;
+    font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+/* Effet hover sur boutons */
+.stButton>button:hover {
+    background-color: #3a6fb0;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Marges généreuses autour des graphiques */
+[data-testid="stPlotlyChart"] {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Stylisation globale pour le fond */
+[data-testid="stAppViewContainer"] {
+    background-color: #FFFFFF;
+    padding: 20px 40px;
+    max-width: 1400px;
+    margin: auto;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+    border-radius: 15px;
+}
+
+/* Stylisation texte secondaire */
+.stCaption,
+.stMarkdown p {
+    color: #586069;
+    font-size: 14px;
+    line-height: 1.6;
+}
