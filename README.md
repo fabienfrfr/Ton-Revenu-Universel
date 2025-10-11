@@ -43,6 +43,15 @@ docker-compose up --build
 - Le **frontend Streamlit** sera disponible à [http://localhost:8501](http://localhost:8501).
 - La **documentation FastAPI** sera disponible à [http://localhost:8000/docs](http://localhost:8000/docs).
 
+En cas de problème de `CacheConfigs` : 
+
+```bash
+docker-compose down --volumes --rmi all --remove-orphans
+docker builder prune -f
+docker system prune --volumes -f
+```
+
+
 ### 3. Développement local (sans Docker)
 
 #### Backend
