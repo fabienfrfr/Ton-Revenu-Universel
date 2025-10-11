@@ -1,3 +1,9 @@
+# © 2025 Mouvement Français pour un Revenu de Base http://www.revenudebase.info
+#
+# SPDX-License-Identifier: Unlicense+
+# SPDX-FileContributor:    Fabien FURFARO
+# SPDX-FileContributor:    Henri  GEIST
+
 __pycache__/
 .pytest_cache/
 .mypy_cache/
@@ -7,5 +13,7 @@ __pycache__/
 .ipynb_checkpoints/
 .coverage
 .git
+.vscode
+extract/projet_complet.md
 
 *.db
