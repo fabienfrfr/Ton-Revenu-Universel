@@ -43,7 +43,7 @@ cd simulateur_revenu_de_base
 ### 2. Lancer avec Docker Compose
 
 ```bash
-docker-compose up --build
+make start
 ```
 
 - Le **frontend Streamlit** sera disponible à [http://localhost:8501](http://localhost:8501).
