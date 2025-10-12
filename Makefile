@@ -9,7 +9,7 @@ LICENCES_CHECKER  := reuse lint
 PYTHON            := python
 PYTEST            := pytest
 YAMLLINT          := yamllint
-DOCKER_COMPOSE    := docker-compose
+DOCKER_COMPOSE    := docker compose
 
 .POSIX:
 .SUFFIXES:
