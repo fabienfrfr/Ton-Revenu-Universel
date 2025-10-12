@@ -8,10 +8,11 @@ version: "3.8"
 services:
   backend:
     build: ./backend
-    ports:
-      - "8000:8000"
     environment:
       - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db/${DB_NAME}
+    networks:
+      - db_backend
+      - backend_frontend
     depends_on:
       db:
         condition: service_healthy
@@ -20,7 +21,9 @@ services:
   frontend:
     build: ./frontend
     ports:
-      - "8501:8501"
+      - "${FRONTEND_PORT}:8501"
+    networks:
+      - backend_frontend
     depends_on:
       - backend
 
@@ -37,6 +40,8 @@ services:
       interval: 5s
       timeout:  5s
       retries:  5
+    networks:
+      - db_backend
 
   tests:
     build:
@@ -54,3 +59,7 @@ services:
 
 volumes:
   postgres_data:
+
+networks:
+  db_backend:
+  backend_frontend:
