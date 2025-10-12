@@ -58,8 +58,7 @@ jobs:
             playwright install
       - name: Start services
         run: |
-            docker-compose up -d db backend frontend
-            sleep 10  # Attendre que les services soient prêts
+            make start
       - name: Run E2E tests
         run: |
             pytest tests/e2e -v
