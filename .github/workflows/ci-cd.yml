@@ -6,64 +6,63 @@
 name: CI/CD Pipeline
 
 on:
-    push:
-        branches: [main]
-    pull_request:
-        branches: [main]
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-    test-unit:
-        runs-on: ubuntu-latest
-        services:
-            postgres:
-                image: postgres:13
-                env:
-                    POSTGRES_USER: user
-                    POSTGRES_PASSWORD: password
-                    POSTGRES_DB: simulateur
-                ports:
-                    - 5432:5432
-                options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+  test-unit:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER:     user
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB:       simulateur
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
-        steps:
-            - uses: actions/checkout@v2
-            - name: Set up Python
-              uses: actions/setup-python@v2
-              with:
-                  python-version: "3.9"
-            - name: Install dependencies
-              run: |
-                  python -m pip install --upgrade pip
-                  pip install -r backend/requirements.txt
-                  pip install -r tests/requirements.txt
-            - name: Run unit tests
-              env:
-                  DATABASE_URL: postgresql://user:password@localhost/simulateur
-              run: |
-                  pytest tests/unit -v
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - name: Install dependencies
+        run: |
+            python -m pip install --upgrade pip
+            pip install -r backend/requirements.txt
+            pip install -r tests/requirements.txt
+      - name: Run unit tests
+        env:
+          DATABASE_URL: postgresql://user:password@localhost/simulateur
+        run: |
+            pytest tests/unit -v
 
-    test-e2e:
-        needs: test-unit
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v2
-            - name: Set up Python
-              uses: actions/setup-python@v2
-              with:
-                  python-version: "3.9"
-            - name: Install dependencies
-              run: |
-                  python -m pip install --upgrade pip
-                  pip install -r tests/requirements.txt
-                  playwright install
-            - name: Start services
-              run: |
-                  docker-compose up -d db backend frontend
-                  sleep 10  # Attendre que les services soient prêts
-            - name: Run E2E tests
-              run: |
-                  pytest tests/e2e -v
-            - name: Stop services
-              if: always()
-              run: |
-                  docker-compose down
+  test-e2e:
+    needs: test-unit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - name: Install dependencies
+        run: |
+            python -m pip install --upgrade pip
+            pip install -r tests/requirements.txt
+            playwright install
+      - name: Start services
+        run: |
+            make start
+      - name: Run E2E tests
+        run: |
+            pytest tests/e2e -v
+      - name: Stop services
+        if: always()
+        run: |
+            make stop
