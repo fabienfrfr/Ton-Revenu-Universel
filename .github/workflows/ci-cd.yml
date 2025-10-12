@@ -65,4 +65,4 @@ jobs:
       - name: Stop services
         if: always()
         run: |
-            docker-compose down
+            make stop
