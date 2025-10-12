@@ -11,6 +11,7 @@ Permet de capturer le contexte complet du projet pour des analyses via un LLM.
 """
 
 import os
+
 import pathspec
 
 

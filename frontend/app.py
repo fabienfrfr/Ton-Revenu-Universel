@@ -3,10 +3,10 @@
 # SPDX-License-Identifier: Apache-2.0+
 # SPDX-FileContributor:    Fabien FURFARO
 
-import streamlit as st
-import requests
 import pandas as pd
 import plotly.express as px
+import requests
+import streamlit as st
 
 st.set_page_config(layout="wide")
 st.title("📊 Simulateur de Revenu de Base")
