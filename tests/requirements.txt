@@ -8,3 +8,4 @@ pytest-bdd
 pytest-playwright
 playwright
 requests
+httpx
