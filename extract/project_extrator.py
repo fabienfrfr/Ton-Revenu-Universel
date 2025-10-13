@@ -1,4 +1,4 @@
-# © 2025 Fabien FURFARO <fabien.farfuro@gmail.com>
+# © 2025 Fabien FURFARO <fabien.furfaro@gmail.com>
 #
 # SPDX-License-Identifier: Apache-2.0+
 # SPDX-FileContributor:    Fabien FURFARO
