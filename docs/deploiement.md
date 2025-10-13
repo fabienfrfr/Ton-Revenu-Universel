@@ -1,3 +1,10 @@
+<!--
+© 2025 Mouvement Français pour un Revenu de Base http://www.revenudebase.info
+
+SPDX-License-Identifier: CC-BY-SA-4.0+
+SPDX-FileContributor:    Fabien FURFARO
+-->
+
 # **📌 Guide de déploiement**
 - **Projet : Ton-Revenu-Universel**
 - **Licence : Apache 2.0**

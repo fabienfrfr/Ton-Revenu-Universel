@@ -1,3 +1,10 @@
+<!--
+© 2025 Mouvement Français pour un Revenu de Base http://www.revenudebase.info
+
+SPDX-License-Identifier: CC-BY-SA-4.0+
+SPDX-FileContributor:    Fabien FURFARO
+-->
+
 ## Architecture fonctionnelle
 
 Inclu les éléments techniques
@@ -20,7 +27,7 @@ graph LR
   BE -- Lecture / écriture des données de simulation --> DB
   BE -- Renvoi des résultats au frontend --> FE
 
- 
+
 
   style User fill:#f9f,stroke:#333,stroke-width:2px,color:#000
   style FE fill:#bbf,stroke:#333,stroke-width:2px,color:#000
@@ -31,8 +38,8 @@ graph LR
   linkStyle 1 stroke:#6f6,stroke-width:2px
   linkStyle 2 stroke:#66f,stroke-width:2px
 
- 
+
 
 ```
 
- 
+
