@@ -62,9 +62,10 @@ delete-ci-runs:
 .PHONY: lint check check_licenses build start stop restart logs coverage merge-dev delete-ci-runs
 
 .env:
-	echo "DB_NAME     = simulator"                   >  $@
-	echo "DB_USER     = simulator_user"              >> $@
-	echo "DB_PASSWORD = $$(openssl rand -base64 32)" >> $@
+	echo "FRONTEND_PORT = 8501"                        >  $@
+	echo "DB_NAME       = simulator"                   >> $@
+	echo "DB_USER       = simulator_user"              >> $@
+	echo "DB_PASSWORD   = $$(openssl rand -base64 32)" >> $@
 
 
 extract/projet_complet.md: extract/project_extrator.py
