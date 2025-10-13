@@ -10,7 +10,7 @@ PROGRAMS          += tests/e2e/conftest.py
 PROGRAMS          += tests/unit/steps/test_simulation.py
 
 SHELL             := /bin/sh
-DOCKER_COMPOSE    := docker-compose
+DOCKER_COMPOSE    := docker compose
 LICENCES_CHECKER  := reuse lint
 PYTHON            := python
 PYTEST            := pytest
