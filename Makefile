@@ -88,6 +88,7 @@ COMMIT_MESSAGE ?= "Merge dev into main"
 ## Strange and brutal things I would not recommend
 
 merge-dev:
+	# Don't use if collaborative works
 	git checkout main
 	git merge --squash dev
 	git commit -m $(COMMIT_MESSAGE)
@@ -111,3 +112,11 @@ delete-ci-runs:
 
 extract/projet_complet.md: extract/project_extrator.py
 	$(PYTHON) $<
+
+##@ Simple echo command
+
+ECHO_MESSAGE ?= "Hello World!"
+
+echo:
+	# make echo ECHO_MESSAGE="Votre message personnalisé"
+	echo $(ECHO_MESSAGE)
