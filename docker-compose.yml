@@ -14,7 +14,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
-        restart:   true
+        restart: true
 
   frontend:
     build: ./frontend
@@ -31,16 +31,16 @@ services:
   db:
     image: postgres:13
     environment:
-      POSTGRES_USER:     ${DB_USER}
+      POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB:       ${DB_NAME}
+      POSTGRES_DB: ${DB_NAME}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test:     ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
       interval: 5s
-      timeout:  5s
-      retries:  5
+      timeout: 5s
+      retries: 5
     networks:
       - db_backend
 
@@ -63,4 +63,13 @@ volumes:
 
 networks:
   db_backend:
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: fd00:db_backend::/64
+
   backend_frontend:
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: fd00:frontend::/64
