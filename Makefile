@@ -19,43 +19,73 @@ PYLINT            := pylint   $(dir $(PROGRAMS))
 YAMLLINT          := yamllint .
 ISORT             := isort    .
 
+NORMAL_CODE       := \033[0m
+BOLD_CODE         := \033[1m
+CYAN_CODE         := \033[36m
+
 .POSIX:
 .SUFFIXES:
 .DELETE_ON_ERROR:
 
-all: check
+## General
 
+##@ Display available commands
+help:
+	@awk 'BEGIN         { printf "\nUsage: ";                                  \
+	                      printf "make $(CYAN_CODE)<target>$(NORMAL_CODE)\n"; \
+	                      FS      = ":"}                                      \
+	      /^##@/        { COMMENT = substr ($$0, 5); next };                  \
+	      /^##/         { printf "\n$(BOLD_CODE)%s$(NORMAL_CODE)\n",          \
+	                             substr ($$0, 4); }                           \
+	      /^[-a-z_%]*:/ { printf "  $(CYAN_CODE)%-20s$(NORMAL_CODE)%s\n",     \
+	                             $$1, COMMENT;                                \
+	                     COMMENT = ""; }' $(MAKEFILE_LIST)
+
+##@ Show containers status
+status:
+	$(DOCKER_COMPOSE) ps
+
+##@ Start all containers of the project
 start: .env
 	$(DOCKER_COMPOSE) up -d --wait --wait-timeout 120
 	$(DOCKER_COMPOSE) ps
 
+##@ Stop all containers of the project
 stop:
 	$(DOCKER_COMPOSE) down
 
+##@ Restart all containers of the project
 restart:
 	$(MAKE) stop
 	$(MAKE) start
 
-status:
-	$(DOCKER_COMPOSE) ps
+##@ Show logs from all containers (hit Ctrl-C to quit).
 logs:
 	$(DOCKER_COMPOSE) logs -f
 
+## Auto tests
+
+##@ Run all automatic checks
 check: lint check_licenses
 
+##@ Run only linters checks
 lint:
 	-$(YAMLLINT)
 	-$(ISORT)
 	-$(PYLINT)
 	-$(MYPY)
 
+##@ Run only licences & copyrights checks
 check_licenses:
 	RESULT=$$($(LICENCES_CHECKER) 2>&1) || (printf "%s\n" "$$RESULT" >&2 && exit 1)
 
+##@ Run coverages checks
 coverage:
 	$(PYTEST) --cov=src --cov-report=term-missing
 
 COMMIT_MESSAGE ?= "Merge dev into main"
+
+## Strange and brutal things I would not recommend
 
 merge-dev:
 	git checkout main
@@ -70,7 +100,7 @@ delete-ci-runs:
 	@echo "Deleting all GitHub Actions runs from GitHub CLI..."
 	gh run list --limit 1000 --json databaseId -q '.[].databaseId' | xargs -n 1 gh run delete
 
-.PHONY: lint check check_licenses build start stop restart logs coverage merge-dev delete-ci-runs
+.PHONY: lint check check_licenses status start stop restart logs coverage merge-dev delete-ci-runs
 
 .env:
 	echo "FRONTEND_PORT = 8501"                        >  $@
