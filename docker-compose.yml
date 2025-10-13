@@ -64,12 +64,6 @@ volumes:
 networks:
   db_backend:
     enable_ipv6: true
-    ipam:
-      config:
-        - subnet: fd00:db_backend::/64
 
   backend_frontend:
     enable_ipv6: true
-    ipam:
-      config:
-        - subnet: fd00:frontend::/64
