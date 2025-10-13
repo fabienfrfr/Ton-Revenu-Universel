@@ -1,3 +1,8 @@
+# © 2025 Mouvement Français pour un Revenu de Base http://www.revenudebase.info
+#
+# SPDX-License-Identifier: Unlicense+
+# SPDX-FileContributor:    Fabien FURFARO
+
 streamlit
 plotly
 pandas

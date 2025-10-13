@@ -1,3 +1,8 @@
+# © 2025 Fabien FURFARO <fabien.farfuro@gmail.com>
+#
+# SPDX-License-Identifier: Apache-2.0+
+# SPDX-FileContributor:    Fabien FURFARO
+
 """
 Script pour extraire le texte de tous les fichiers d'un projet,
 en ignorant les fichiers et dossiers spécifiés dans .gitignore.

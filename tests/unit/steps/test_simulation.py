@@ -1,7 +1,13 @@
-from pytest_bdd import scenarios, given, when, then
+# © 2025 Mouvement Français pour un Revenu de Base http://www.revenudebase.info
+#
+# SPDX-License-Identifier: Apache-2.0+
+# SPDX-FileContributor:    Fabien FURFARO
+
 from fastapi.testclient import TestClient
-from backend.app.main import app
+from pytest_bdd import given, scenarios, then, when
+
 from backend.app.database import SessionLocal, engine
+from backend.app.main import app
 from backend.app.models import Base
 
 scenarios("../features/simulation.feature")

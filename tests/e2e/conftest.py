@@ -1,3 +1,8 @@
+# © 2025 Mouvement Français pour un Revenu de Base http://www.revenudebase.info
+#
+# SPDX-License-Identifier: Apache-2.0+
+# SPDX-FileContributor:    Fabien FURFARO
+
 import pytest
 from playwright.sync_api import sync_playwright
 

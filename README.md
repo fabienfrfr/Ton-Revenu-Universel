@@ -1,3 +1,9 @@
+<!--
+© 2025 Mouvement Français pour un Revenu de Base http://www.revenudebase.info
+
+SPDX-License-Identifier: CC-BY-SA-4.0+
+SPDX-FileContributor:    Fabien FURFARO
+-->
 
 # Simulateur de Revenu de Base
 
@@ -37,13 +43,13 @@ cd simulateur_revenu_de_base
 ### 2. Lancer avec Docker Compose
 
 ```bash
-docker-compose up --build
+make start
 ```
 
 - Le **frontend Streamlit** sera disponible à [http://localhost:8501](http://localhost:8501).
 - La **documentation FastAPI** sera disponible à [http://localhost:8000/docs](http://localhost:8000/docs).
 
-En cas de problème de `CacheConfigs` : 
+En cas de problème de `CacheConfigs` :
 
 ```bash
 docker-compose down --volumes --rmi all --remove-orphans
@@ -205,4 +211,4 @@ Ce projet est sous licence **MIT**. Voir le fichier [LICENSE](LICENSE) pour plus
 
 ## 📬 Contact
 
-Pour toute question ou suggestion, contacte-moi à [fabien.furfaro@gail.com](mailto:fabien.furfaro@example.com).
+Pour toute question ou suggestion, contacte-moi à [fabien.furfaro@gmail.com](mailto:fabien.furfaro@gmail.com).
