@@ -3,8 +3,9 @@
 # SPDX-License-Identifier: Apache-2.0+
 # SPDX-FileContributor:    Fabien FURFARO
 
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
+
 from . import crud, models, schemas
 from .database import SessionLocal, engine
 

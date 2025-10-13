@@ -3,7 +3,8 @@
 # SPDX-License-Identifier: Apache-2.0+
 # SPDX-FileContributor:    Fabien FURFARO
 
-from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy import Column, Float, Integer, String
+
 from .database import Base
 
 

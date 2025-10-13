@@ -4,12 +4,20 @@
 # SPDX-FileContributor:    Fabien FURFARO
 # SPDX-FileContributor:    Henri  GEIST
 
+PROGRAMS          := backend/app/main.py
+PROGRAMS          += frontend/app.py
+PROGRAMS          += tests/e2e/conftest.py
+PROGRAMS          += tests/unit/steps/test_simulation.py
+
 SHELL             := /bin/sh
+DOCKER_COMPOSE    := docker compose
 LICENCES_CHECKER  := reuse lint
 PYTHON            := python
 PYTEST            := pytest
-YAMLLINT          := yamllint
-DOCKER_COMPOSE    := docker compose
+MYPY              := mypy  --strict $(PROGRAMS)
+PYLINT            := pylint   $(dir $(PROGRAMS))
+YAMLLINT          := yamllint .
+ISORT             := isort    .
 
 .POSIX:
 .SUFFIXES:
@@ -28,18 +36,21 @@ restart:
 	$(MAKE) stop
 	$(MAKE) start
 
+status:
+	$(DOCKER_COMPOSE) ps
 logs:
 	$(DOCKER_COMPOSE) logs -f
 
 check: lint check_licenses
 
 lint:
-	$(YAMLLINT) .
-	isort src/ tests/
-	$(PYTHON) -m pylint src/ tests/
+	-$(YAMLLINT)
+	-$(ISORT)
+	-$(PYLINT)
+	-$(MYPY)
 
 check_licenses:
-	$(LICENCES_CHECKER)
+	RESULT=$$($(LICENCES_CHECKER) 2>&1) || (printf "%s\n" "$$RESULT" >&2 && exit 1)
 
 coverage:
 	$(PYTEST) --cov=src --cov-report=term-missing

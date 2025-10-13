@@ -3,10 +3,10 @@
 # SPDX-License-Identifier: Apache-2.0+
 # SPDX-FileContributor:    Fabien FURFARO
 
-import streamlit as st
-import requests
 import pandas as pd
 import plotly.express as px
+import requests
+import streamlit as st
 
 
 def local_css(file_name):
