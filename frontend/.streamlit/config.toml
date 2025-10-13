@@ -12,9 +12,3 @@ font = "sans serif"                     # Police utilisée ("serif", "sans serif
 
 [client]
 toolbarMode = "auto"
-
-[server]
-enableCORS = false
-enableXsrfProtection = false
-headless = true
-port = 8501
