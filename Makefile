@@ -44,7 +44,7 @@ logs:
 check: lint check_licenses
 
 lint:
-	-$(YAMLLINT)
+	$(YAMLLINT)
 	-$(ISORT)
 	-$(PYLINT)
 	-$(MYPY)

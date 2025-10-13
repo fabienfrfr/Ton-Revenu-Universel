@@ -12,3 +12,5 @@ rules:
     spaces: 2
   colons:
     max-spaces-after: -1
+  truthy:
+    check-keys: false
