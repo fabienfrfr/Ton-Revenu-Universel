@@ -14,6 +14,8 @@ __pycache__/
 .coverage
 .git
 .vscode
-extract/projet_complet.md
 
 *.db
+letsencrypt/
+
+extract/projet_complet.md
