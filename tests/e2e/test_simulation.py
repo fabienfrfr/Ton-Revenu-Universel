@@ -25,3 +25,14 @@ def test_simulation_e2e(page: Page):
 
     # Vérifier que les graphiques s'affichent
     assert page.is_visible(".plotly-graph-div")
+
+
+def test_stats_e2e(page: Page):
+    page.goto("http://frontend:8501")
+    # Vérifier que l'onglet "Statistiques globales" est présent
+    assert page.is_visible("text=Statistiques globales")
+    # Cliquer sur l'onglet
+    page.click("text=Statistiques globales")
+    # Vérifier que les métriques s'affichent
+    assert page.is_visible("text=Nombre total de simulations")
+    assert page.is_visible("text=Revenu mensuel moyen")

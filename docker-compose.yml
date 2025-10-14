@@ -6,27 +6,23 @@
 services:
   backend:
     build: ./backend
+    ports:
+      - "${BACKEND_PORT}:8000"
     environment:
       - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db/${DB_NAME}
-    networks:
-      - db_backend
-      - backend_frontend
     depends_on:
       db:
         condition: service_healthy
-        #restart: true
+        restart: true
 
   frontend:
     build: ./frontend
     ports:
       - "${FRONTEND_PORT}:8501"
-    networks:
-      - backend_frontend
     depends_on:
       - backend
     volumes:
       - ./frontend:/app
-    command: streamlit run app.py --server.port=8501 --server.address=[0.0.0.0]
 
   db:
     image: postgres:13
@@ -41,8 +37,6 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-    networks:
-      - db_backend
 
   tests:
     build:
@@ -60,10 +54,3 @@ services:
 
 volumes:
   postgres_data:
-
-networks:
-  db_backend:
-    enable_ipv6: true
-
-  backend_frontend:
-    enable_ipv6: true

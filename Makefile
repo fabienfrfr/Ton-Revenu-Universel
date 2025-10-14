@@ -85,10 +85,9 @@ coverage:
 
 COMMIT_MESSAGE ?= "Merge dev into main"
 
-## Strange and brutal things I would not recommend
+## Strange and brutal things I would not recommend (Don't use it if collaborative works)
 
 merge-dev:
-	# Don't use if collaborative works
 	git checkout main
 	git merge --squash dev
 	git commit -m $(COMMIT_MESSAGE)
@@ -104,6 +103,7 @@ delete-ci-runs:
 .PHONY: lint check check_licenses status start stop restart logs coverage merge-dev delete-ci-runs
 
 .env:
+	echo "BACKEND_PORT 	= 8000"                        >  $@
 	echo "FRONTEND_PORT = 8501"                        >  $@
 	echo "DB_NAME       = simulator"                   >> $@
 	echo "DB_USER       = simulator_user"              >> $@

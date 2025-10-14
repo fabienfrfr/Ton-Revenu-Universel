@@ -27,3 +27,8 @@ def create_simulation(
     simulation: schemas.SimulationCreate, db: Session = Depends(get_db)
 ):
     return crud.create_simulation(db=db, simulation=simulation)
+
+
+@app.get("/simulations/stats", response_model=dict)
+def get_simulation_stats(db: Session = Depends(get_db)):
+    return crud.get_simulation_stats(db)

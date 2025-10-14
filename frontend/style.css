@@ -56,7 +56,11 @@ h1,
 [data-testid="stAppViewContainer"] {
     background-color: #FFFFFF;
     padding: 20px 40px;
-    max-width: 1400px;
+    max-width: none !important;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
     margin: auto;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
     border-radius: 15px;
