@@ -2,12 +2,12 @@
 #
 # SPDX-License-Identifier: Apache-2.0+
 # SPDX-FileContributor:    Fabien FURFARO
+# SPDX-FileContributor:    Henri  GEIST
 
 services:
   backend:
+    container_name: ${INSTANCE_NAME}_rdb_simulator_backend
     build: ./backend
-    ports:
-      - "${BACKEND_PORT}:8000"
     environment:
       - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db/${DB_NAME}
     depends_on:
@@ -15,25 +15,33 @@ services:
         condition: service_healthy
         restart: true
     networks:
-      - internal
+      - db_backend
+      - backend_frontend
+      - traefik  # To remove as soon as not needed for tests anymore.
+    labels:      # To remove as soon as not needed for tests anymore.
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.${INSTANCE_NAME}_rdb_simulator_backend.rule=Host(`backend.${DOMAIN_NAME}`)"
+      - "traefik.http.services.${INSTANCE_NAME}_rdb_simulator_backend_service.loadbalancer.server.port=8000"
+      - "traefik.http.routers.${INSTANCE_NAME}_rdb_simulator_backend.service=${INSTANCE_NAME}_rdb_simulator_backend_service"
     restart: unless-stopped
 
   frontend:
+    container_name: ${INSTANCE_NAME}_rdb_simulator_frontend
     build: ./frontend
-    ports:
-      - "${FRONTEND_PORT}:8501"
     depends_on:
       - backend
     volumes:
       - ./frontend:/app
     networks:
-      - internal
-      - traefik_public
+      - backend_frontend
+      - traefik
     labels:
       - "traefik.enable=true"
-      # - "traefik.http.routers.frontend.rule=Host(`nom-domaine.com`)"
-      - "traefik.http.routers.frontend.entrypoints=websecure"
-      - "traefik.http.routers.frontend.tls.certresolver=letsencrypt"
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.${INSTANCE_NAME}_rdb_simulator_frontend.rule=Host(`${DOMAINE_NAME}`)"
+      - "traefik.http.services.${INSTANCE_NAME}_rdb_simulator_frontend_service.loadbalancer.server.port=8501"
+      - "traefik.http.routers.${INSTANCE_NAME}_rdb_simulator_frontend.service=${INSTANCE_NAME}_rdb_simulator_frontend_service"
     restart: unless-stopped
 
   db:
@@ -50,26 +58,7 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - internal
-    restart: unless-stopped
-
-  traefik: # Reverse proxy avec Let’s Encrypt
-    image: traefik:v2.10
-    command:
-      - "--providers.docker=true"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
-      # - "--certificatesresolvers.letsencrypt.acme.email=email@example.com"
-      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
-      - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "./letsencrypt:/letsencrypt"
-    networks:
-      - traefik_public
+      - db_backend
     restart: unless-stopped
 
   tests:
@@ -85,10 +74,15 @@ services:
     volumes:
       - ./tests:/app/tests
     command: pytest tests/unit tests/e2e -v
+    networks:
+      - backend_frontend
 
 volumes:
   postgres_data:
 
 networks:
-  internal:
-  traefik_public:
+  db_backend:
+  backend_frontend:
+  traefik:
+    name: ${TRAEFIK_NETWORK_NAME}
+    external: true

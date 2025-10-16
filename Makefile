@@ -103,11 +103,12 @@ delete-ci-runs:
 .PHONY: lint check check_licenses status start stop restart logs coverage merge-dev delete-ci-runs
 
 .env:
-	echo "BACKEND_PORT 	= 8000"                        >  $@
-	echo "FRONTEND_PORT = 8501"                        >  $@
-	echo "DB_NAME       = simulator"                   >> $@
-	echo "DB_USER       = simulator_user"              >> $@
-	echo "DB_PASSWORD   = $$(openssl rand -base64 32)" >> $@
+	echo "INSTANCE_NAME        = $$USER"                      >  $@
+	echo "DOMAIN_NAME          = simulateur.$$USER"           >> $@
+	echo "TRAEFIK_NETWORK_NAME = traefik"                     >> $@
+	echo "DB_NAME              = simulator"                   >> $@
+	echo "DB_USER              = simulator_user"              >> $@
+	echo "DB_PASSWORD          = $$(openssl rand -base64 32)" >> $@
 
 
 extract/projet_complet.md: extract/project_extrator.py
