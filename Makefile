@@ -45,8 +45,12 @@ help:
 status:
 	$(DOCKER_COMPOSE) ps
 
+##@ Build / rebuild the containers
+build: .env
+	$(DOCKER_COMPOSE) build
+
 ##@ Start all containers of the project
-start: .env
+start: .env build
 	$(DOCKER_COMPOSE) up -d --wait --wait-timeout 120
 	$(DOCKER_COMPOSE) ps
 
@@ -100,7 +104,7 @@ delete-ci-runs:
 	@echo "Deleting all GitHub Actions runs from GitHub CLI..."
 	gh run list --limit 1000 --json databaseId -q '.[].databaseId' | xargs -n 1 gh run delete
 
-.PHONY: lint check check_licenses status start stop restart logs coverage merge-dev delete-ci-runs
+.PHONY: lint check check_licenses status build start stop restart logs coverage merge-dev delete-ci-runs
 
 .env:
 	echo "INSTANCE_NAME        = $$USER"                      >  $@
