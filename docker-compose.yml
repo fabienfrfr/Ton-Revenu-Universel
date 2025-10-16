@@ -21,9 +21,9 @@ services:
     labels:      # To remove as soon as not needed for tests anymore.
       - "traefik.enable=true"
       - "traefik.docker.network=traefik"
-      - "traefik.http.routers.${INSTANCE_NAME}_rdb_simulator_backend.rule=Host(`backend.${DOMAIN_NAME}`)"
-      - "traefik.http.services.${INSTANCE_NAME}_rdb_simulator_backend_service.loadbalancer.server.port=8000"
-      - "traefik.http.routers.${INSTANCE_NAME}_rdb_simulator_backend.service=${INSTANCE_NAME}_rdb_simulator_backend_service"
+      - "traefik.http.routers.backend.rule=Host(`backend.${DOMAIN_NAME}`)"
+      - "traefik.http.services.backend_service.loadbalancer.server.port=8000"
+      - "traefik.http.routers.backend.service=backend_service"
     restart: unless-stopped
 
   frontend:
@@ -39,12 +39,13 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik"
-      - "traefik.http.routers.${INSTANCE_NAME}_rdb_simulator_frontend.rule=Host(`${DOMAINE_NAME}`)"
-      - "traefik.http.services.${INSTANCE_NAME}_rdb_simulator_frontend_service.loadbalancer.server.port=8501"
-      - "traefik.http.routers.${INSTANCE_NAME}_rdb_simulator_frontend.service=${INSTANCE_NAME}_rdb_simulator_frontend_service"
+      - "traefik.http.routers.frontend.rule=Host(`${DOMAINE_NAME}`)"
+      - "traefik.http.services.frontend_service.loadbalancer.server.port=8501"
+      - "traefik.http.routers.frontend.service=frontend_service"
     restart: unless-stopped
 
   db:
+    container_name: ${INSTANCE_NAME}_rdb_simulator_db
     image: postgres:13
     environment:
       POSTGRES_USER: ${DB_USER}
@@ -62,6 +63,7 @@ services:
     restart: unless-stopped
 
   tests:
+    container_name: ${INSTANCE_NAME}_rdb_simulator_tests
     build:
       context: .
       dockerfile: Dockerfile.tests
