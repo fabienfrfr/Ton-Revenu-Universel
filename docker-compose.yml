@@ -39,7 +39,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik"
-      - "traefik.http.routers.frontend.rule=Host(`${DOMAINE_NAME}`)"
+      - "traefik.http.routers.frontend.rule=Host(`${DOMAIN_NAME}`)"
       - "traefik.http.services.frontend_service.loadbalancer.server.port=8501"
       - "traefik.http.routers.frontend.service=frontend_service"
     restart: unless-stopped
