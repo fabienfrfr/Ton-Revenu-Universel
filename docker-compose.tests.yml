@@ -1,0 +1,39 @@
+# © 2025 Mouvement Français pour un Revenu de Base http://www.revenudebase.info
+#
+# SPDX-License-Identifier: Apache-2.0+
+# SPDX-FileContributor:    Fabien FURFARO
+# SPDX-FileContributor:    Henri  GEIST
+
+services:
+  backend:
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.backend.rule=Host(`backend.${DOMAIN_NAME}`)"
+      - "traefik.http.services.backend_service.loadbalancer.server.port=8000"
+      - "traefik.http.routers.backend.service=backend_service"
+    ports:
+      - "${BACKEND_LISTEN_ON}:8000/tcp"
+
+  frontend:
+    ports:
+      - "${FRONTEND_LISTEN_ON}:8501/tcp"
+
+  tests:
+    container_name: ${INSTANCE_NAME}_rdb_simulator_tests
+    build:
+      context: .
+      dockerfile: Dockerfile.tests
+    depends_on:
+      - backend
+      - frontend
+    environment:
+      - FRONTEND_URL=http://frontend:8501
+      - BACKEND_URL=http://backend:8000
+    volumes:
+      - ./tests:/app/tests
+    command: pytest tests/unit tests/e2e -v
+    networks:
+      - backend_frontend
