@@ -28,6 +28,7 @@ Un simulateur web moderne pour calculer l'impact d'un revenu de base sur les rev
 - [Docker](https://docs.docker.com/get-docker/) (pour le déploiement local et la production)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 - [Python 3.9+](https://www.python.org/downloads/) (pour le développement local)
+- Une instance de [Traefik](https://hub.docker.com/_/traefik) déjà configurée et fonctionnelle.
 
 ---
 
@@ -40,14 +41,38 @@ git clone https://github.com/ffurfaro/simulateur_revenu_de_base.git
 cd simulateur_revenu_de_base
 ```
 
-### 2. Lancer avec Docker Compose
+### 2. Configuration
+
+Créez le fichier de paramétrage par défaut :
+
+```bash
+make .env
+```
+Puis éditez le fichier .env pour adapter a vos besoins.
+
+Principalement le nom de domaine du projet.
+
+Le nom du network docker externe sur lequel traefik écoute.
+
+Et potentiellement le nom de l'instance pour éviter d'avoir plusieurs
+instance du même nom si vous en lancez en parallèle sur le même serveur.
+
+Ensuite soit vous disposez d'un enregistrement DNS correspondant a votre config.
+Soit vous mettez un alias dans le fichier /etc/hosts de toutes le machine
+avec lesquels vous voulez accéder au site.
+
+```
+IP_DU_SERVEUR    nom.de.domaine.du.service
+```
+
+### 3. Lancer avec Docker Compose
 
 ```bash
 make start
 ```
 
-- Le **frontend Streamlit** sera disponible à [http://localhost:8501](http://localhost:8501).
-- La **documentation FastAPI** sera disponible à [http://localhost:8000/docs](http://localhost:8000/docs).
+- Le **frontend Streamlit** sera disponible sur http://nom.de.domaine.du.service
+- La **documentation FastAPI** sera disponible sur http://backend.nom.de.domaine.du.service
 
 En cas de problème de `CacheConfigs` :
 
@@ -58,7 +83,7 @@ docker system prune --volumes -f
 ```
 
 
-### 3. Développement local (sans Docker)
+### 4. Développement local (sans Docker)
 
 #### Backend
 
