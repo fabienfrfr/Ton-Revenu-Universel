@@ -17,13 +17,6 @@ services:
     networks:
       - db_backend
       - backend_frontend
-      - traefik  # To remove as soon as not needed for tests anymore.
-    labels:      # To remove as soon as not needed for tests anymore.
-      - "traefik.enable=true"
-      - "traefik.docker.network=traefik"
-      - "traefik.http.routers.backend.rule=Host(`backend.${DOMAIN_NAME}`)"
-      - "traefik.http.services.backend_service.loadbalancer.server.port=8000"
-      - "traefik.http.routers.backend.service=backend_service"
     restart: unless-stopped
 
   frontend:
@@ -61,23 +54,6 @@ services:
     networks:
       - db_backend
     restart: unless-stopped
-
-  tests:
-    container_name: ${INSTANCE_NAME}_rdb_simulator_tests
-    build:
-      context: .
-      dockerfile: Dockerfile.tests
-    depends_on:
-      - backend
-      - frontend
-    environment:
-      - FRONTEND_URL=http://frontend:8501
-      - BACKEND_URL=http://backend:8000
-    volumes:
-      - ./tests:/app/tests
-    command: pytest tests/unit tests/e2e -v
-    networks:
-      - backend_frontend
 
 volumes:
   postgres_data:
