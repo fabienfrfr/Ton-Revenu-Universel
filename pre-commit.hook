@@ -1,0 +1,36 @@
+#!/bin/sh -e
+
+# © 2025 Mouvement Français pour un Revenu de Base http://www.revenudebase.info
+#
+# SPDX-License-Identifier: Apache-2.0+
+# SPDX-FileContributor:    Henri  GEIST
+
+# Redirect stdout to stderr.
+exec 1>&2
+
+OLD_STASH=$(git rev-parse --quiet --verify refs/stash) || true
+
+cleanup ()
+{
+	EXIT_STATUS=$?
+
+	trap - EXIT TERM QUIT INT HUP ABRT
+
+	NEW_STASH=$(git rev-parse --quiet --verify refs/stash) || true
+
+	if [ "$OLD_STASH" != "$NEW_STASH" ]
+	then
+		git reset --hard
+		git stash pop --index --quiet
+	fi
+
+	exit "${EXIT_STATUS}"
+}
+
+trap 'cleanup' EXIT
+trap 'exit 3'  TERM QUIT INT HUP ABRT
+
+# To execute tests on what will be committed and not what is in work tree.
+git stash push --keep-index --include-untracked --quiet
+
+make check
