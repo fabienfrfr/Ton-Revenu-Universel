@@ -38,7 +38,7 @@ help:
 	      /^##@/        { COMMENT = substr ($$0, 5); next };                  \
 	      /^##/         { printf "\n$(BOLD_CODE)%s$(NORMAL_CODE)\n",          \
 	                             substr ($$0, 4); }                           \
-	      /^[-a-z_%]*:/ { printf "  $(CYAN_CODE)%-20s$(NORMAL_CODE)%s\n",     \
+	      /^[-a-z_%]*:/ { printf "  $(CYAN_CODE)%-25s$(NORMAL_CODE)%s\n",     \
 	                             $$1, COMMENT;                                \
 	                     COMMENT = ""; }' $(MAKEFILE_LIST)
 
@@ -68,6 +68,10 @@ restart:
 logs:
 	$(DOCKER_COMPOSE) -f docker-compose.tests.yml logs -f
 
+##@ To get all new commits auto checked before validation.
+install-pre-commit-hook: pre-commit.hook
+	install pre-commit.hook .git/hooks/pre-commit
+
 ## Tests
 
 ##@ Start in tests mode
@@ -88,6 +92,10 @@ lint:
 ##@ Run only licences & copyrights checks
 check_licenses:
 	RESULT=$$($(LICENCES_CHECKER) 2>&1) || (printf "%s\n" "$$RESULT" >&2 && exit 1)
+
+##@ Install a pre-commit-hook to validate each commits by autotests
+check_precommit_hook:
+	[ -e .git ] && (diff --brief .git/hooks/pre-commit pre-commit.hook || echo "Please run 'make install-pre-commit-hook' to update it" >&2)
 
 ##@ Run coverages checks
 coverage:
@@ -110,9 +118,11 @@ delete-ci-runs:
 	@echo "Deleting all GitHub Actions runs from GitHub CLI..."
 	gh run list --limit 1000 --json databaseId -q '.[].databaseId' | xargs -n 1 gh run delete
 
-.PHONY: lint check check_licenses status build start stop restart logs coverage merge-dev delete-ci-runs
+.PHONY: status build start stop restart logs test_mode_start install-pre-commit-hook
+.PHONY: lint check check_licenses check_precommit_hook coverage
+.PHONY: merge-dev delete-ci-runs
 
-.env:
+.env: install-pre-commit-hook
 	echo "INSTANCE_NAME        = $$USER"                                >  $@
 	echo "DOMAIN_NAME          = simulateur.$$USER"                     >> $@
 	echo "TRAEFIK_NETWORK_NAME = traefik"                               >> $@
