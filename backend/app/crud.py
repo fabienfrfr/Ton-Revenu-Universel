@@ -3,8 +3,8 @@
 # SPDX-License-Identifier: Apache-2.0+
 # SPDX-FileContributor:    Fabien FURFARO
 
-from sqlalchemy.orm import Session
 from sqlalchemy import func
+from sqlalchemy.orm import Session
 
 from . import models, schemas
 from .models import Simulation
@@ -45,8 +45,8 @@ def get_simulation_stats(db: Session):
     )
 
     # Distribution par nombre d'enfants
-    enfants_counts = (
-        db.query(Simulation.nombre_enfants, func.count(Simulation.id).label("count"))
+    enfants_counts = (db.query(Simulation.nombre_enfants,
+                               func.count(Simulation.id).label("count"))
         .group_by(Simulation.nombre_enfants)
         .all()
     )
