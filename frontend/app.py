@@ -15,7 +15,7 @@ def local_css(file_name):
 
 
 st.set_page_config(
-    page_title="Simulateur Revenu Universel (en cours de développement)",
+    page_title="Simulateur Revenu Universel",
     page_icon="💰",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -95,16 +95,15 @@ if lancer_simulation:
                 stats = stats_response.json()
                 col1, col2 = st.columns(2)
                 with col1:
-                    st.metric("Nombre total de simulations",
-                              stats["total_simulations"])
-                    st.metric("Revenu mensuel moyen",
-                              f"{stats['avg_revenu_mensuel']:.2f} €"
+                    st.metric("Nombre total de simulations", stats["total_simulations"])
+                    st.metric(
+                        "Revenu mensuel moyen", f"{stats['avg_revenu_mensuel']:.2f} €"
                     )
-                    st.metric("Revenu de base moyen",
-                              f"{stats['avg_revenu_de_base']:.2f} €"
+                    st.metric(
+                        "Revenu de base moyen", f"{stats['avg_revenu_de_base']:.2f} €"
                     )
-                    st.metric("Revenu total moyen",
-                              f"{stats['avg_revenu_total']:.2f} €"
+                    st.metric(
+                        "Revenu total moyen", f"{stats['avg_revenu_total']:.2f} €"
                     )
                 with col2:
                     st.write("### Répartition par statut")
@@ -141,9 +140,7 @@ if lancer_simulation:
 
 # Exemple de simulation automatique pour illustration
 if st.checkbox("Voir un exemple de simulation"):
-    exemple = {"revenu_mensuel": 2500,
-               "statut": "en couple",
-               "nombre_enfants": 2}
+    exemple = {"revenu_mensuel": 2500, "statut": "en couple", "nombre_enfants": 2}
     response = requests.post(
         "http://backend:8000/simulations/", json=exemple, timeout=10
     )
@@ -151,9 +148,7 @@ if st.checkbox("Voir un exemple de simulation"):
         result = response.json()
         df_exemple = pd.DataFrame(
             {
-                "Catégorie": ["Revenu actuel",
-                              "Revenu de base",
-                              "Revenu total"],
+                "Catégorie": ["Revenu actuel", "Revenu de base", "Revenu total"],
                 "Montant (€)": [
                     exemple["revenu_mensuel"],
                     result["revenu_de_base"],

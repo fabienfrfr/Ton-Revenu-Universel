@@ -82,6 +82,13 @@ docker builder prune -f
 docker system prune --volumes -f
 ```
 
+#### En mode test
+
+```bash
+docker network create traefik
+make test_mode_start
+```
+
 
 ### 4. Développement local (sans Docker)
 
