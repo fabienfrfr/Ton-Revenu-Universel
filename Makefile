@@ -10,6 +10,7 @@ PROGRAMS             += tests/e2e/conftest.py
 PROGRAMS             += tests/unit/steps/test_simulation.py
 
 SHELL                := /bin/sh
+DOCKER_NETWORK       := docker network
 DOCKER_COMPOSE       := docker compose -f docker-compose.yml
 DOCKER_START_OPTIONS := --detach --wait --wait-timeout 120
 LICENCES_CHECKER     := reuse lint
@@ -23,6 +24,8 @@ ISORT                := isort    .
 NORMAL_CODE          := \033[0m
 BOLD_CODE            := \033[1m
 CYAN_CODE            := \033[36m
+
+include .env
 
 .POSIX:
 .SUFFIXES:
@@ -47,7 +50,8 @@ status:
 	$(DOCKER_COMPOSE) ps
 
 ##@ Build / rebuild the containers
-build: .env
+build: .env check_precommit_hook
+	$(DOCKER_NETWORK) create $(TRAEFIK_NETWORK_NAME) 2> /dev/null || true
 	$(DOCKER_COMPOSE) -f docker-compose.tests.yml build
 
 ##@ Start all containers of the project
@@ -80,7 +84,7 @@ test_mode_start: .env build
 	$(DOCKER_COMPOSE) ps
 
 ##@ Run all automatic checks
-check: lint check_licenses
+check: lint check_licenses check_precommit_hook
 
 ##@ Run only linters checks
 lint:
@@ -122,7 +126,7 @@ delete-ci-runs:
 .PHONY: lint check check_licenses check_precommit_hook coverage
 .PHONY: merge-dev delete-ci-runs
 
-.env: install-pre-commit-hook
+.env:
 	echo "INSTANCE_NAME        = $$USER"                                >  $@
 	echo "DOMAIN_NAME          = simulateur.$$USER"                     >> $@
 	echo "TRAEFIK_NETWORK_NAME = traefik"                               >> $@
