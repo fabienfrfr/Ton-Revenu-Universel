@@ -6,9 +6,7 @@
 from fastapi.testclient import TestClient
 from pytest_bdd import given, scenarios, then, when
 
-from backend.app.database import SessionLocal, engine
 from backend.app.main import app
-from backend.app.models import Base
 
 scenarios("../features/simulation.feature")
 
