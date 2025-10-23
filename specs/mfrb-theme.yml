@@ -1,0 +1,54 @@
+# © 2025 Mouvement Français pour un Revenu de Base http://www.revenudebase.info
+#
+# SPDX-License-Identifier: Apache-2.0+
+# SPDX-FileContributor:    Henri  GEIST
+
+extends: default
+
+
+title-page:
+  logo:
+    image: 'image:mfrb-logo.svg[logo, 400]'
+
+
+header:
+  height: $base_line_height_length * 2.5
+  border_color: DDDDDD
+  recto:
+    left:
+      content: 'image:mfrb-logo.svg[logo, 40]'
+    center:
+      content: '{document-title}'
+    right:
+      content: '{docdate}'
+  verso:
+    left:
+      content: $header_recto_right_content
+    center:
+      content: $header_recto_center_content
+    right:
+      content: $header_recto_left_content
+
+
+footer:
+  font_size: $base_font_size_small
+  border_color: DDDDDD
+  border_width: 0.25
+  height: $base_line_height_length * 2.5
+  line_height: 1
+  padding: [$base_line_height_length / 2, 1, 0, 1]
+  vertical_align: top
+  recto:
+    left:
+      content: '{revnumber}'
+    center:
+      content:
+    right:
+      content: '{page-number} / {page-count}'
+  verso:
+    left:
+      content: $footer_recto_right_content
+    center:
+      content: $footer_recto_center_content
+    right:
+      content: $footer_recto_left_content

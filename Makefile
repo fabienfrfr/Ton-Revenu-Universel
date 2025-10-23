@@ -76,6 +76,10 @@ logs:
 install-pre-commit-hook: pre-commit.hook
 	install pre-commit.hook .git/hooks/pre-commit
 
+##@ Generaite PDF and HTML version of the documentation.
+doc:
+	$(MAKE) -C specs
+
 ## Tests
 
 ##@ Start in tests mode
@@ -107,6 +111,10 @@ coverage:
 
 COMMIT_MESSAGE ?= "Merge dev into main"
 
+##@ Clean builds arthefacts
+clean:
+	$(MAKE) -C specs clean
+
 ## Strange and brutal things I would not recommend (Don't use it if collaborative works)
 
 merge-dev:
@@ -123,7 +131,7 @@ delete-ci-runs:
 	gh run list --limit 1000 --json databaseId -q '.[].databaseId' | xargs -n 1 gh run delete
 
 .PHONY: status build start stop restart logs test_mode_start install-pre-commit-hook
-.PHONY: lint check check_licenses check_precommit_hook coverage
+.PHONY: lint check check_licenses check_precommit_hook coverage doc clean
 .PHONY: merge-dev delete-ci-runs
 
 .env:

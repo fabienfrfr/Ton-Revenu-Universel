@@ -1,0 +1,152 @@
+= Specifications du simulateur de revenu de base
+Henri GEIST
+:doctype:   book
+:toc:       left
+:toclevels: 3
+:numbered:
+:copyright: © 2025 Mouvement Français pour un Revenu de Base http://www.revenudebase.info
+:SPDX-License-Identifier: CC-BY-SA-4.0+
+
+
+== Bête à cornes
+
+[ditaa, "horned_beast"]
+....
+  Pour qui fait-on cela ?            Sur quoi cela opère ?
+/-----------------------\            /-------------------\
+| Pour le grand public  |            |  Des modèles de   |
+|          et           |            |   économiques de  |
+|   les économistes     |            |  revenu de base   |
+\-----------+-----------/            \--------+----------/
+            |                                 |
+            |         Le produit              |
+            |     /-----------------\         |
+            |     |                 |         |
+            \-----+   Simulateur    +----+----/
+                  |                 |    |
+                  \-----------------/    |
+                                         |
+                           /-------------/
+                           |
+                           V
+         /-----------------+------------------\
+         | Pour permettre de voir et comparer |
+         | les effets des différents modèles. |
+         \------------------------------------/
+                       Pourquoi ?
+....
+
+Le simulateur permet de comparer les effets de différents modèles économiques
+de Revenu de Base en vue de permettre au économistes et au grand publique de
+les comprendre et de les adapter.
+
+
+== Pieuvre
+
+[graphviz, "octopus", layout=twopi]
+----
+graph octopus
+{
+    ranksep = 3
+    root    = "Simulateur"
+
+    "Simulateur"  -- "Publique"     [label = Fc_1]
+    "Simulateur"  -- "Modèles"      [label = Fc_2]
+    "Simulateur"  -- "Économistes"  [label = Fc_3]
+    "Simulateur"  -- "Developpeurs" [label = Fc_4]
+
+    "Publique"    -- "Modèles"      [label = Fp_1]
+    "Économistes" -- "Modèles"      [label = Fp_2]
+}
+----
+
+
+== Exigences
+
+
+=== Fonctions principales
+
+==== Vue du publique (Fp_1)
+
+[cols="12%,~a"]
+|====
+| Id          | Description
+
+| <<Fp_1_1>>  | Texte à remplir
+| <<Fp_1_2>>  | Autre texte à remplir
+|====
+
+
+==== Vue des économistes (Fp_2)
+
+[cols="12%,~a"]
+|====
+| Id          | Description
+
+| <<Fp_2_1>>  |
+|====
+
+<<<
+
+=== Fonctions contraintes
+
+==== Du publique (Fc_1)
+
+[cols="12%,~a"]
+|====
+| Id          | Description
+
+| <<Fc_1_1>>  |
+|====
+
+
+==== Des modèles (Fc_2)
+
+[cols="12%,~a"]
+|====
+| Id          | Description
+
+| <<Fc_2_1>>  |
+|====
+
+
+==== Des économistes (Fc_3)
+
+[cols="12%,~a"]
+|====
+| Id          | Description
+
+| <<Fc_3_1>>  |
+|====
+
+
+==== Des développeurs (Fc_4)
+
+[cols="12%,~a"]
+|====
+| Id          | Description
+
+| <<Fc_4_1>>  |
+|====
+
+
+== Raisons d'êtres
+
+=== Fp_1_1
+
+Raison d'être de la fonction Fp_1_1
+
+=== Fp_1_2
+
+Raison d'être de la fonction Fp_1_2
+
+=== Fp_2_1
+
+Raison d'être de la fonction Fp_2_1
+
+
+<<<
+
+=== Fc_1_1
+
+Etc ...
