@@ -62,10 +62,10 @@ clean:
 
 .PHONY: clean all build pdf html
 
-%.pdf: %.adoc $(PDF_THEME) $(LOGO) $(MAKEFILES)
+%.pdf: %.adoc $(PDF_THEME) $(LOGO) $(MAKEFILE_LIST)
 	@echo $(ASCIIDOCTOR_PDF) $@
 	$(ASCIIDOCTOR_PDF) $(ASCIIDOCTOR_PDF_OPTIONS) $<
 
-%.html: %.adoc $(MAKEFILES)
+%.html: %.adoc $(MAKEFILE_LIST)
 	@echo $(ASCIIDOCTOR) $@
 	$(ASCIIDOCTOR)     $(ASCIIDOCTOR_OPTIONS)     $<

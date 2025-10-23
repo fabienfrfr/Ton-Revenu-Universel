@@ -16,14 +16,14 @@ header:
   border_color: DDDDDD
   recto:
     left:
-      content: 'image:mfrb-logo.svg[logo, 40]'
+      content: '{revnumber}'
     center:
       content: '{document-title}'
     right:
-      content: '{docdate}'
+      content: '{docdate} image:mfrb-logo.svg[logo, 40]'
   verso:
     left:
-      content: $header_recto_right_content
+      content: 'image:mfrb-logo.svg[logo, 40] {docdate}'
     center:
       content: $header_recto_center_content
     right:
@@ -40,7 +40,7 @@ footer:
   vertical_align: top
   recto:
     left:
-      content: '{revnumber}'
+      content: '{copyright} - {SPDX-License-Identifier}'
     center:
       content:
     right:
