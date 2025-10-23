@@ -25,10 +25,30 @@ Un simulateur web moderne pour calculer l'impact d'un revenu de base sur les rev
 
 ## 🛠 Prérequis
 
-- [Docker](https://docs.docker.com/get-docker/) (pour le déploiement local et la production)
+### 1. Pour le faire tourner
+
+- Un shell POSIX. N'importe lequel.
+- [GnuMake](https://www.gnu.org/software/make/)
+- [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
-- [Python 3.9+](https://www.python.org/downloads/) (pour le développement local)
 - Une instance de [Traefik](https://hub.docker.com/_/traefik) déjà configurée et fonctionnelle.
+
+### 2. Pour le développement
+
+Il faudra en plus :
+
+- [Git](https://git-scm.com/)
+- [Python 3.9+](https://www.python.org/downloads/)
+- [Pytest](https://docs.pytest.org/)
+- [Pylint](https://www.pylint.org/)
+- [Mypy](https://www.mypy-lang.org/)
+- [Reuse](https://reuse.software/)
+
+### 3. Pour générer la doc aux formats PDF et HTML
+
+- [Asciidoctor](https://asciidoctor.org/)
+- [Asciidoctor-pdf](https://docs.asciidoctor.org/pdf-converter/latest/)
+- [Asciidoctor-diagram](https://docs.asciidoctor.org/diagram-extension/latest/)
 
 ---
 
