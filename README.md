@@ -43,6 +43,10 @@ Il faudra en plus :
 - [Pylint](https://www.pylint.org/)
 - [Mypy](https://www.mypy-lang.org/)
 - [Reuse](https://reuse.software/)
+- [Shellcheck](https://www.shellcheck.net/)
+- [Bats](https://bats-core.readthedocs.io/)
+- [Reqflow](https://goeb.github.io/reqflow/)
+- [Tappy](https://tappy.readthedocs.io/en/latest/)
 
 ### 3. Pour générer la doc aux formats PDF et HTML
 
