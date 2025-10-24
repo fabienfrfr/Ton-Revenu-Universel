@@ -89,6 +89,7 @@ test_mode_start: .env build
 
 ##@ Run all automatic checks
 check: lint check_licenses check_precommit_hook
+	$(MAKE) -C tests
 
 ##@ Run only linters checks
 lint:
