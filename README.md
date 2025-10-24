@@ -46,6 +46,7 @@ Il faudra en plus :
 - [Shellcheck](https://www.shellcheck.net/)
 - [Bats](https://bats-core.readthedocs.io/)
 - [Reqflow](https://goeb.github.io/reqflow/)
+- [Tappy](https://tappy.readthedocs.io/en/latest/)
 
 ### 3. Pour générer la doc aux formats PDF et HTML
 
