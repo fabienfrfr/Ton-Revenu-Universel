@@ -9,12 +9,17 @@ PROGRAMS             += frontend/app.py
 PROGRAMS             += tests/e2e/conftest.py
 PROGRAMS             += tests/unit/steps/test_simulation.py
 
+VENV_DIR             := .venv
+REQUIERMENTS         := $(addsuffix /requirements.txt, . frontend backend tests)
+
 SHELL                := /bin/sh
 DOCKER_NETWORK       := docker network
 DOCKER_COMPOSE       := docker compose -f docker-compose.yml
 DOCKER_START_OPTIONS := --detach --wait --wait-timeout 120
 LICENCES_CHECKER     := reuse lint
-PYTHON               := python
+PIP                  := pip3
+PYTHON               := python3
+ACTIVATE_VENV        := . $(VENV_DIR)/bin/activate
 PYTEST               := pytest
 MYPY                 := mypy  --strict $(PROGRAMS)
 PYLINT               := pylint   $(dir $(PROGRAMS))
@@ -92,11 +97,11 @@ check: lint check_licenses check_precommit_hook
 	$(MAKE) -C tests
 
 ##@ Run only linters checks
-lint:
+lint: venv
 	$(YAMLLINT)
 	-$(ISORT)
-	-$(PYLINT)
-	-$(MYPY)
+	-$(ACTIVATE_VENV) && $(PYLINT)
+	-$(ACTIVATE_VENV) && $(MYPY)
 
 ##@ Run only licences & copyrights checks
 check_licenses:
@@ -116,6 +121,17 @@ COMMIT_MESSAGE ?= "Merge dev into main"
 clean:
 	$(MAKE) -C specs clean
 
+##@ Create Python virtual environnement
+venv: $(VENV_DIR)/is_up_to_date
+
+$(VENV_DIR)/is_up_to_date: $(REQUIERMENTS) $(VENV_DIR)/pyvenv.cfg
+	$(ACTIVATE_VENV) && $(PIP) install --quiet $(addprefix -r , $(REQUIERMENTS))
+	touch $@
+
+$(VENV_DIR)/pyvenv.cfg: $(MAKEFILE_LIST)
+	$(PYTHON) -m venv $(VENV_DIR)
+
+
 ## Strange and brutal things I would not recommend (Don't use it if collaborative works)
 
 merge-dev:
@@ -132,7 +148,7 @@ delete-ci-runs:
 	gh run list --limit 1000 --json databaseId -q '.[].databaseId' | xargs -n 1 gh run delete
 
 .PHONY: status build start stop restart logs test_mode_start install-pre-commit-hook
-.PHONY: lint check check_licenses check_precommit_hook coverage doc clean
+.PHONY: venv lint check check_licenses check_precommit_hook coverage doc clean
 .PHONY: merge-dev delete-ci-runs
 
 .env:

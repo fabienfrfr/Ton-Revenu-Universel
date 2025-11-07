@@ -48,11 +48,31 @@ Il faudra en plus :
 - [Reqflow](https://goeb.github.io/reqflow/)
 - [Tappy](https://tappy.readthedocs.io/en/latest/)
 
+For debian like distribution do :
+
+```bash
+sudo apt install git reuse shellcheck bats tappy
+sudo apt install build-essetial automake
+sudo apt install libzip-dev libxml2-dev libpoppler-cpp-dev libpcre3-dev
+git clone https://github.com/goeb/reqflow.git
+cd reqflow
+./configure
+make
+sudo make install
+```
+
 ### 3. Pour générer la doc aux formats PDF et HTML
 
 - [Asciidoctor](https://asciidoctor.org/)
 - [Asciidoctor-pdf](https://docs.asciidoctor.org/pdf-converter/latest/)
 - [Asciidoctor-diagram](https://docs.asciidoctor.org/diagram-extension/latest/)
+
+For debian like distribution do :
+
+```bash
+sudo apt install asciidoctor ruby-asciidoctor-pdf
+sudo gem install asciidoctor-diagram asciidoctor-diagram-ditaamini
+```
 
 ---
 

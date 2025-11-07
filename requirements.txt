@@ -1,0 +1,10 @@
+# © 2025 Mouvement Français pour un Revenu de Base http://www.revenudebase.info
+#
+# SPDX-License-Identifier: Unlicense+
+# SPDX-FileContributor:    Henri GEIST
+
+mypy
+pylint
+plotly-stubs
+pandas-stubs
+types-requests
