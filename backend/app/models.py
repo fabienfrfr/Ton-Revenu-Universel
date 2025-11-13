@@ -3,17 +3,23 @@
 # SPDX-License-Identifier: Apache-2.0+
 # SPDX-FileContributor:    Fabien FURFARO
 
-from sqlalchemy import Column, Float, Integer, String
+from dataclasses    import dataclass
+
+from sqlalchemy     import Float, Integer, String
+from sqlalchemy.orm import MappedColumn, mapped_column
 
 from .database import Base
 
 
+@dataclass
 class Simulation(Base):
     __tablename__ = "simulations"
 
-    id = Column(Integer, primary_key=True, index=True)
-    revenu_mensuel = Column(Float)
-    statut = Column(String)
-    nombre_enfants = Column(Integer)
-    revenu_de_base = Column(Float)
-    revenu_total = Column(Float)
+    id             : MappedColumn[int]   = mapped_column (Integer,
+                                                          primary_key = True,
+                                                          index       = True)
+    revenu_mensuel : MappedColumn[float] = mapped_column (Float)
+    statut         : MappedColumn[str]   = mapped_column (String)
+    nombre_enfants : MappedColumn[int]   = mapped_column (Integer)
+    revenu_de_base : MappedColumn[float] = mapped_column (Float)
+    revenu_total   : MappedColumn[float] = mapped_column (Float)
