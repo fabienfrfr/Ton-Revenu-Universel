@@ -34,19 +34,19 @@ def get_simulation_stats(db: Session):
         func.avg(Simulation.revenu_mensuel).label("avg_revenu_mensuel"),
         func.avg(Simulation.revenu_de_base).label("avg_revenu_de_base"),
         func.avg(Simulation.revenu_total).label("avg_revenu_total"),
-        func.count(Simulation.id).label("total_simulations"),
+        func.count(Simulation.id).label("total_simulations"),                   # pylint: disable=not-callable
     ).first()
 
     # Distribution par statut
     statut_counts = (
-        db.query(Simulation.statut, func.count(Simulation.id).label("count"))
+        db.query(Simulation.statut, func.count(Simulation.id).label("count"))   # pylint: disable=not-callable
         .group_by(Simulation.statut)
         .all()
     )
 
     # Distribution par nombre d'enfants
     enfants_counts = (db.query(Simulation.nombre_enfants,
-                               func.count(Simulation.id).label("count"))
+                               func.count(Simulation.id).label("count"))        # pylint: disable=not-callable
         .group_by(Simulation.nombre_enfants)
         .all()
     )
