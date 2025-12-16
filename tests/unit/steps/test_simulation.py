@@ -13,17 +13,17 @@ scenarios("../features/simulation.feature")
 client = TestClient(app)
 
 
-@given("un revenu mensuel de 2000 euros")
+@given("un revenu mensuel de 2000 euros", target_fixture="revenu_mensuel")
 def revenu_mensuel():
     return 2000.0
 
 
-@given('un statut "celibataire"')
+@given('un statut "celibataire"', target_fixture="statut")
 def statut():
     return "celibataire"
 
 
-@given("0 enfants")
+@given("0 enfants", target_fixture="nombre_enfants")
 def nombre_enfants():
     return 0
 
