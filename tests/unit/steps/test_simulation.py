@@ -13,22 +13,22 @@ scenarios("../features/simulation.feature")
 client = TestClient(app)
 
 
-@given("un revenu mensuel de 2000 euros")
+@given("un revenu mensuel de 2000 euros", target_fixture="revenu_mensuel")
 def revenu_mensuel():
     return 2000.0
 
 
-@given('un statut "celibataire"')
+@given('un statut "celibataire"', target_fixture="statut")
 def statut():
     return "celibataire"
 
 
-@given("0 enfants")
+@given("0 enfants", target_fixture="nombre_enfants")
 def nombre_enfants():
     return 0
 
 
-@when("je lance la simulation")
+@when("je lance la simulation", target_fixture="simulation")
 def simulation(revenu_mensuel, statut, nombre_enfants):
     response = client.post(
         "/simulations/",
@@ -41,11 +41,11 @@ def simulation(revenu_mensuel, statut, nombre_enfants):
     return response
 
 
-@then("le revenu de base doit être 1000 euros")
+@then("le revenu de base doit être 1000 euros", target_fixture="revenu_de_base")
 def revenu_de_base(simulation):
     assert simulation.json()["revenu_de_base"] == 1000
 
 
-@then("le revenu total doit être 3000 euros")
+@then("le revenu total doit être 3000 euros", target_fixture="revenu_total")
 def revenu_total(simulation):
     assert simulation.json()["revenu_total"] == 3000
