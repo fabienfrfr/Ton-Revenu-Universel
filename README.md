@@ -7,6 +7,9 @@ SPDX-FileContributor:    Fabien FURFARO
 
 # Simulateur de Revenu de Base
 
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/fabienfrfr/TRU)
+[![Codeberg](https://img.shields.io/badge/Codeberg-2185d0?style=for-the-badge&logo=gitea&logoColor=white)](https://codeberg.org/fabienfrfr/Ton-Revenu-Universel)
+
 Un simulateur web moderne pour calculer l'impact d'un revenu de base sur les revenus des ménages, inspiré par les propositions politiques actuelles. Le projet utilise **FastAPI** pour le backend, **Streamlit** pour le frontend, et **pytest-bdd** pour les tests.
 
 ![Streamlit Demo](./docs/demo_simul.png)
